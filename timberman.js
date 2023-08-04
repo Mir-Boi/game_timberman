@@ -31,7 +31,7 @@ var background 		= loadSprite("assets/image/background.png", onReady);
 var clic 			= loadSprite("assets/image/clic.png", onReady);
 // TODO:
 var or				= loadSprite("assets/image/or.png", onReady);
-var click			= loadSprite("assets/image/click.gif", onReady);
+var click			= loadSprite("assets/image/tap.png", onReady);
 var left 			= loadSprite("assets/image/click.gif", onReady);
 // var left 			= loadSprite("assets/image/left.png", onReady);
 // var right			= loadSprite("assets/image/right.png", onReady);
@@ -189,12 +189,9 @@ function renderGame() {
 	// Display Level Load 
 	if (level == levelLoad) {
 		displaySprite(man, man.x, 1270);
-		// FIXME:
-		displaySprite(click, 200, 1200);
-		displaySprite(click, 650, 1200);
-		displaySprite(left, 200, 1200);
-		// displaySprite(or, 450, 1300);
-		// displaySprite(right, 650, 1200);
+		opacitySprite(click, 0.7);  // 70% opacity для подсказок к нажатиям
+		displaySprite(click, 50, 700, 400, 800);  // левый tap hint + размер обоим
+		displaySprite(click, 630, 700);  // правый tap hint
 		displaySprite(clic, 300, 1500);
 	}
 	
@@ -202,7 +199,9 @@ function renderGame() {
 	if (level == levelGameOver) {
 		displaySprite(rip, man.x, 1240);
 		displaySprite(gameover, 110, -250);
-		displaySprite(play, 350, 900);
+		// TODO: сделать кнопку ""
+		document.querySelector(".btnContainer").classList.remove("hidden");
+		// displaySprite(play, 350, 900);
 		
 		for (var i=0; i < bestscore.toString().length; i++) {
 			p = bestscore.toString().substring(i, i+1)
@@ -237,25 +236,26 @@ function renderGame() {
 		playAnimation(man, "cut")	
 	}
 	
-	// Evenements clavier et souris 
-	if (keyboardReleased(KEY_LEFT) && level != levelGameOver) {
-		man.data = "left";
-		man.x = 263;
-		flipSprite(man, 1, 1);
-		man.action = true;		
-	}
+	// обработка нажатий стрелочек и enter
+	// if (keyboardReleased(KEY_LEFT) && level != levelGameOver) {
+	// 	man.data = "left";
+	// 	man.x = 263;
+	// 	flipSprite(man, 1, 1);
+	// 	man.action = true;		
+	// }
 
-	if (keyboardReleased(KEY_RIGHT) && level != levelGameOver) {
-		man.data = "right";
-		man.x = 800;
-		flipSprite(man, -1, 1);
-		man.action = true;
-	}
+	// if (keyboardReleased(KEY_RIGHT) && level != levelGameOver) {
+	// 	man.data = "right";
+	// 	man.x = 800;
+	// 	flipSprite(man, -1, 1);
+	// 	man.action = true;
+	// }
 
-	if (keyboardReleased(KEY_ENTER) && level == levelGameOver) {
-		restartGame();
-		level =levelLoad;
-	}
+	// if (keyboardReleased(KEY_ENTER) && level == levelGameOver) {
+	// 	restartGame();
+	// 	level =levelLoad;
+	// }
+
 	 
 	if (mouseButton() == true) {
 		switch (level) {
