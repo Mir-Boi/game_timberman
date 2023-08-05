@@ -201,12 +201,9 @@ function renderGame() {
 		displaySprite(gameover, 110, -250);
 		// TODO: конец
 		document.querySelector(".btnContainer").classList.remove("hidden");
-		const data = {
-			score: 11,
-		}
-		document.querySelector(".btnContainer").addEventListener("click", () => {
-			Telegram.WebApp.sendData(JSON.stringify(data));
-		});
+		//  почему-то трижды срабатывает, лень фиксить нормально
+		document.querySelector(".btnContainer").removeEventListener("click", sendData)
+		document.querySelector(".btnContainer").addEventListener("click", sendData);
 		
 		for (var i=0; i < bestscore.toString().length; i++) {
 			p = bestscore.toString().substring(i, i+1)
@@ -332,6 +329,10 @@ function renderGame() {
 	}
 	requestAnimationFrame(renderGame);
 };
+
+function sendData() {
+	Telegram.WebApp.sendData(score);
+}
 
 Telegram.WebApp.expand();
 Telegram.WebApp.enableClosingConfirmation();  // вышел - не зассчитывается попытка
