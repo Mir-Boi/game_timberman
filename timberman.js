@@ -199,9 +199,14 @@ function renderGame() {
 	if (level == levelGameOver) {
 		displaySprite(rip, man.x, 1240);
 		displaySprite(gameover, 110, -250);
-		// TODO: сделать кнопку ""
+		// TODO: конец
 		document.querySelector(".btnContainer").classList.remove("hidden");
-		// displaySprite(play, 350, 900);
+		const data = {
+			score: 11,
+		}
+		document.querySelector(".btnContainer").addEventListener("click", () => {
+			Telegram.WebApp.sendData(JSON.stringify(data));
+		});
 		
 		for (var i=0; i < bestscore.toString().length; i++) {
 			p = bestscore.toString().substring(i, i+1)
@@ -327,3 +332,6 @@ function renderGame() {
 	}
 	requestAnimationFrame(renderGame);
 };
+
+Telegram.WebApp.expand();
+Telegram.WebApp.enableClosingConfirmation();  // вышел - не зассчитывается попытка
