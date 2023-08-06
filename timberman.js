@@ -331,7 +331,7 @@ function renderGame() {
 };
 
 function sendData() {
-	alert();
+	alert(`Баллов: ${score}`);
 	Telegram.WebApp.sendData(score);
 }
 
