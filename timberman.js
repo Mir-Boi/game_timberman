@@ -202,7 +202,7 @@ function renderGame() {
 		// TODO: конец
 		document.querySelector(".btnContainer").classList.remove("hidden");
 		//  почему-то трижды срабатывает, лень фиксить нормально
-		document.querySelector(".btnContainer").removeEventListener("click", sendData)
+		// document.querySelector(".btnContainer").removeEventListener("click", sendData)
 		document.querySelector(".btnContainer").addEventListener("click", sendData);
 		
 		for (var i=0; i < bestscore.toString().length; i++) {
